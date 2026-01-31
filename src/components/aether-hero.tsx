@@ -360,6 +360,39 @@ export default function AetherHero({
           )}
         </div>
       </div>
+
+      {/* Footer */}
+      <footer
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          zIndex: 10,
+          color: textColor,
+          opacity: 0.8,
+          fontFamily: "'Space Grotesk', sans-serif",
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img
+            src="https://framerusercontent.com/images/PrAz6Q4t90I7XJvN5812B70c1E.png"
+            alt="0G Logo"
+            style={{ height: '24px', filter: 'invert(1)' }}
+          />
+          <span style={{ fontSize: '14px', fontWeight: 500 }}>
+            Built for 0G by Krishna Bantola ❤️
+          </span>
+        </div>
+        <p style={{ margin: 0, fontSize: '12px', opacity: 0.6 }}>
+          © 2026 All rights reserved
+        </p>
+      </footer>
     </section>
   );
 }

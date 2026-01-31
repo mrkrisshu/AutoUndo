@@ -379,14 +379,17 @@ export default function AetherHero({
           fontFamily: "'Space Grotesk', sans-serif",
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ fontSize: '14px', fontWeight: 500 }}>
+            Built For
+          </span>
           <img
-            src="https://framerusercontent.com/images/PrAz6Q4t90I7XJvN5812B70c1E.png"
+            src="/zero-g-logo.png"
             alt="0G Logo"
-            style={{ height: '24px', filter: 'invert(1)' }}
+            style={{ height: '28px', borderRadius: '6px' }}
           />
           <span style={{ fontSize: '14px', fontWeight: 500 }}>
-            Built for 0G by Krishna Bantola ❤️
+            Made with love ❤️ By Krishna Bantola
           </span>
         </div>
         <p style={{ margin: 0, fontSize: '12px', opacity: 0.6 }}>

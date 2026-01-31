@@ -368,31 +368,32 @@ export default function AetherHero({
           bottom: 0,
           left: 0,
           width: '100%',
-          padding: '24px',
+          padding: '40px 24px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '12px',
+          gap: '16px',
           zIndex: 10,
           color: textColor,
-          opacity: 0.8,
+          opacity: 0.95,
           fontFamily: "'Space Grotesk', sans-serif",
+          background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <span style={{ fontSize: '14px', fontWeight: 500 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '0.02em' }}>
             Built For
           </span>
           <img
             src="/zero-g-logo.png"
             alt="0G Logo"
-            style={{ height: '28px', borderRadius: '6px' }}
+            style={{ height: '56px', borderRadius: '14px', boxShadow: '0 8px 24px rgba(124, 58, 237, 0.4)' }}
           />
-          <span style={{ fontSize: '14px', fontWeight: 500 }}>
+          <span style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '0.02em' }}>
             Made with love ❤️ By Krishna Bantola
           </span>
         </div>
-        <p style={{ margin: 0, fontSize: '12px', opacity: 0.6 }}>
+        <p style={{ margin: 0, fontSize: '14px', opacity: 0.6, letterSpacing: '0.05em' }}>
           © 2026 All rights reserved
         </p>
       </footer>

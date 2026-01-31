@@ -1,10 +1,12 @@
-import OpenAI from "openai";
 import { DecisionResult } from "./types";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || "",
-    baseURL: process.env.OPENAI_BASE_URL || "https://api.0g.ai/v1",
-});
+// 0G Compute Network Configuration
+const ZEROG_COMPUTE_API = "https://inference-api.0g.ai/v1";
+const ZEROG_MODEL = "qwen-2.5-7b-instruct"; // Available on 0G Galileo Testnet
+
+// Fallback to OpenRouter if 0G is unavailable
+const OPENROUTER_API = "https://openrouter.ai/api/v1";
+const OPENROUTER_MODEL = "google/gemini-2.5-flash-lite";
 
 const SYSTEM_PROMPT = `You are an AI safety auditor for automated systems. Your role is to analyze metrics and decide whether to EXECUTE or SKIP an automated action.
 
@@ -38,44 +40,150 @@ Respond with this exact JSON structure:
   "audit_summary": "One-line summary suitable for blockchain storage"
 }`;
 
-export async function generateDecision(metricValue: number): Promise<DecisionResult> {
+interface AIResponse {
+    decision: string;
+    reasoning: string;
+    confidence_score: number;
+    risk_assessment: string;
+    undo_plan: string;
+    audit_summary: string;
+}
+
+// Try 0G Compute Network first
+async function callZeroGCompute(metricValue: number): Promise<AIResponse | null> {
     try {
-        const completion = await openai.chat.completions.create({
-            model: process.env.AI_MODEL || "gpt-3.5-turbo",
-            messages: [
-                { role: "system", content: SYSTEM_PROMPT },
-                { role: "user", content: USER_PROMPT_TEMPLATE(metricValue) },
-            ],
-            temperature: 0.3,
-            max_tokens: 500,
-            response_format: { type: "json_object" },
+        console.log("Attempting 0G Compute Network...");
+
+        const response = await fetch(`${ZEROG_COMPUTE_API}/chat/completions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.ZEROG_API_KEY || ""}`,
+            },
+            body: JSON.stringify({
+                model: ZEROG_MODEL,
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user", content: USER_PROMPT_TEMPLATE(metricValue) },
+                ],
+                temperature: 0.3,
+                max_tokens: 500,
+            }),
         });
 
-        const content = completion.choices[0]?.message?.content;
-        if (!content) {
-            throw new Error("No response from AI");
+        if (!response.ok) {
+            console.log("0G Compute unavailable, status:", response.status);
+            return null;
         }
 
-        const parsed = JSON.parse(content) as DecisionResult;
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content;
 
-        // Validate and sanitize response
-        return {
-            decision: parsed.decision === "EXECUTE" ? "EXECUTE" : "SKIP",
-            reasoning: parsed.reasoning || "No reasoning provided",
-            confidence_score: Math.min(1, Math.max(0, parsed.confidence_score || 0.5)),
-            risk_assessment: ["Low", "Medium", "High"].includes(parsed.risk_assessment)
-                ? parsed.risk_assessment
-                : "Medium",
-            undo_plan: parsed.undo_plan || "No undo plan provided",
-            audit_summary: parsed.audit_summary || `Decision: ${parsed.decision} for metric ${metricValue}`,
-            timestamp: Date.now(),
-        };
+        if (!content) {
+            return null;
+        }
+
+        // Extract JSON from response (handle markdown code blocks)
+        let jsonStr = content;
+        const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (jsonMatch) {
+            jsonStr = jsonMatch[1];
+        }
+
+        return JSON.parse(jsonStr.trim()) as AIResponse;
     } catch (error) {
-        console.error("AI Decision Error:", error);
+        console.log("0G Compute error:", error);
+        return null;
+    }
+}
 
-        // Fallback deterministic logic if AI fails
+// Fallback to OpenRouter
+async function callOpenRouter(metricValue: number): Promise<AIResponse | null> {
+    const apiKey = process.env.OPENROUTER_API_KEY;
+    if (!apiKey) {
+        console.log("OpenRouter API key not configured");
+        return null;
+    }
+
+    try {
+        console.log("Falling back to OpenRouter...");
+
+        const response = await fetch(`${OPENROUTER_API}/chat/completions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+                "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+                "X-Title": "AutoUndo",
+            },
+            body: JSON.stringify({
+                model: OPENROUTER_MODEL,
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user", content: USER_PROMPT_TEMPLATE(metricValue) },
+                ],
+                temperature: 0.3,
+                max_tokens: 500,
+            }),
+        });
+
+        if (!response.ok) {
+            console.log("OpenRouter error, status:", response.status);
+            return null;
+        }
+
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content;
+
+        if (!content) {
+            return null;
+        }
+
+        // Extract JSON from response
+        let jsonStr = content;
+        const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (jsonMatch) {
+            jsonStr = jsonMatch[1];
+        }
+
+        return JSON.parse(jsonStr.trim()) as AIResponse;
+    } catch (error) {
+        console.log("OpenRouter error:", error);
+        return null;
+    }
+}
+
+export async function generateDecision(metricValue: number): Promise<DecisionResult> {
+    // Try 0G Compute first (decentralized AI)
+    let aiResponse = await callZeroGCompute(metricValue);
+    let provider = "0G Compute";
+
+    // Fallback to OpenRouter if 0G unavailable
+    if (!aiResponse) {
+        aiResponse = await callOpenRouter(metricValue);
+        provider = "OpenRouter";
+    }
+
+    // If both fail, use deterministic fallback
+    if (!aiResponse) {
+        console.log("All AI providers unavailable, using fallback logic");
         return generateFallbackDecision(metricValue);
     }
+
+    console.log(`AI response from ${provider}:`, aiResponse);
+
+    // Validate and sanitize response
+    return {
+        decision: aiResponse.decision === "EXECUTE" ? "EXECUTE" : "SKIP",
+        reasoning: aiResponse.reasoning || "No reasoning provided",
+        confidence_score: Math.min(1, Math.max(0, aiResponse.confidence_score || 0.5)),
+        risk_assessment: ["Low", "Medium", "High"].includes(aiResponse.risk_assessment)
+            ? aiResponse.risk_assessment as "Low" | "Medium" | "High"
+            : "Medium",
+        undo_plan: aiResponse.undo_plan || "No undo plan provided",
+        audit_summary: aiResponse.audit_summary || `Decision: ${aiResponse.decision} for metric ${metricValue}`,
+        timestamp: Date.now(),
+    };
 }
 
 function generateFallbackDecision(metricValue: number): DecisionResult {

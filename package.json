@@ -1,6 +1,7 @@
 {
-  "name": "temp-init",
-  "version": "0.1.0",
+  "name": "autoundo",
+  "version": "1.0.0",
+  "description": "Reversible AI Automation for a Safer Web - Built on 0G Network",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +10,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "ethers": "^6.16.0",
     "next": "16.1.6",
+    "openai": "^6.17.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

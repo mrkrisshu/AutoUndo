@@ -238,19 +238,24 @@ export default function AppPage() {
 
                                 {/* Undo Button */}
                                 {currentResult.decision === "EXECUTE" && (
-                                    <button
-                                        onClick={() => {
-                                            if (history.length > 0) {
-                                                handleUndo(history[0].id);
-                                            }
-                                        }}
-                                        className="w-full py-4 bg-[var(--danger)] hover:bg-[var(--danger)]/80 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2"
-                                    >
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                                        </svg>
-                                        UNDO ACTION
-                                    </button>
+                                    <div className="text-center">
+                                        <button
+                                            onClick={() => {
+                                                if (history.length > 0) {
+                                                    handleUndo(history[0].id);
+                                                }
+                                            }}
+                                            className="w-full py-4 bg-[var(--danger)] hover:bg-[var(--danger)]/80 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                                            </svg>
+                                            UNDO ACTION
+                                        </button>
+                                        <p className="text-xs text-[var(--muted)] mt-2">
+                                            Reverts the AI-initiated action (audit trail remains on-chain)
+                                        </p>
+                                    </div>
                                 )}
                             </section>
                         )}
@@ -271,8 +276,8 @@ export default function AppPage() {
                                         <div
                                             key={item.id}
                                             className={`p-4 rounded-lg border transition-all ${item.undone
-                                                    ? "bg-[var(--danger)]/10 border-[var(--danger)]/30 opacity-60"
-                                                    : "bg-[var(--secondary)] border-[var(--border)]"
+                                                ? "bg-[var(--danger)]/10 border-[var(--danger)]/30 opacity-60"
+                                                : "bg-[var(--secondary)] border-[var(--border)]"
                                                 }`}
                                         >
                                             <div className="flex items-center justify-between mb-2">
@@ -291,7 +296,7 @@ export default function AppPage() {
                                             </p>
                                             {item.txHash && (
                                                 <p className="text-xs font-mono text-[var(--muted)] truncate">
-                                                    tx: {item.txHash.slice(0, 16)}...
+                                                    On-chain proof: {item.txHash.slice(0, 16)}...
                                                 </p>
                                             )}
                                             {item.undone && (

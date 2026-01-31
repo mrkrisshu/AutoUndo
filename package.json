@@ -26,6 +26,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "hardhat": "^3.1.5",
+    "solc": "^0.8.33",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -145,6 +145,11 @@ export default function AppPage() {
                                                 step="0.1"
                                                 value={metricValue}
                                                 onChange={(e) => setMetricValue(e.target.value)}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === "Enter" && !loading && metricValue) {
+                                                        handleRunAutomation();
+                                                    }
+                                                }}
                                                 placeholder="Metric Value (0-100)"
                                                 className="w-full h-14 px-5 bg-black/40 border border-white/10 rounded-xl text-lg text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all font-mono"
                                                 disabled={loading}
@@ -285,8 +290,8 @@ export default function AppPage() {
                                             <div
                                                 key={item.id}
                                                 className={`group p-4 rounded-xl border backdrop-blur-md transition-all ${item.undone
-                                                        ? "bg-rose-950/20 border-rose-500/20 opacity-70"
-                                                        : "bg-white/5 border-white/10 hover:bg-white/10"
+                                                    ? "bg-rose-950/20 border-rose-500/20 opacity-70"
+                                                    : "bg-white/5 border-white/10 hover:bg-white/10"
                                                     }`}
                                             >
                                                 <div className="flex items-center justify-between mb-2">

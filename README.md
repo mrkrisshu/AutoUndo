@@ -2,7 +2,10 @@
 
 **Reversible AI Automation for a Safer Web**
 
-![Landing Page](image1)
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/a6129540-9fc4-4f47-b0b1-6d1ac02b936f" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6e60e559-a83e-4cb5-9bfc-45f4ec9a8734" />
+
+
 
 AutoUndo is a decentralized AI automation dApp that enforces a critical safety rule:
 
@@ -16,9 +19,6 @@ Before any automated decision is executed, AutoUndo:
 
 This makes AI automation safer, reversible, and trustworthy.
 
-## 🏆 Hackathon Tracks — Built to Win
-
-### 🥇 Best dApp Vibecoded During the Event
 
 ✅ Built entirely during the hackathon  
 ✅ Fully functional live dApp with end-to-end flow  
@@ -33,7 +33,7 @@ This makes AI automation safer, reversible, and trustworthy.
 - See on-chain transaction hashes
 - Trigger rollback actions
 
-### 🎨 Creative Utilization of 0G Compute + Chain
+🎨 Creative Utilization of 0G Compute + Chain
 
 AutoUndo uses both **0G Compute** AND **0G Chain** in a meaningful, non-trivial way:
 

@@ -14,9 +14,13 @@ export async function storeDecisionOnChain(
         const privateKey = process.env.PRIVATE_KEY;
         const contractAddress = process.env.CONTRACT_ADDRESS;
 
-        if (!rpcUrl || !privateKey || !contractAddress) {
-            // Return mock response if blockchain not configured
-            console.log("Blockchain not configured, returning mock response");
+        console.log("Blockchain config check:");
+        console.log("- RPC URL:", rpcUrl ? "✓ Set" : "✗ Missing");
+        console.log("- Private Key:", privateKey ? "✓ Set" : "✗ Missing");
+        console.log("- Contract Address:", contractAddress || "✗ Missing");
+
+        if (!rpcUrl || !privateKey || !contractAddress || contractAddress.includes("your_")) {
+            console.log("Blockchain not fully configured, returning mock response");
             return {
                 success: true,
                 txHash: `0x${Date.now().toString(16).padStart(64, "0")}`,

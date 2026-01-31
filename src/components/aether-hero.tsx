@@ -368,11 +368,11 @@ export default function AetherHero({
           bottom: 0,
           left: 0,
           width: '100%',
-          padding: '40px 24px',
+          padding: '32px 24px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '16px',
+          gap: '14px',
           zIndex: 10,
           color: textColor,
           opacity: 0.95,
@@ -380,20 +380,20 @@ export default function AetherHero({
           background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <span style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '0.02em' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '0.02em' }}>
             Built For
           </span>
           <img
-            src="/zero-g-logo.png"
+            src="/zero-g-final.png"
             alt="0G Logo"
-            style={{ height: '56px', borderRadius: '14px', boxShadow: '0 8px 24px rgba(124, 58, 237, 0.4)' }}
+            style={{ height: '40px' }}
           />
-          <span style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '0.02em' }}>
-            Made with love ❤️ By Krishna Bantola
+          <span style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '0.02em' }}>
+            Made With ❤️ By Krishna Bantola
           </span>
         </div>
-        <p style={{ margin: 0, fontSize: '14px', opacity: 0.6, letterSpacing: '0.05em' }}>
+        <p style={{ margin: 0, fontSize: '12px', opacity: 0.5, letterSpacing: '0.05em' }}>
           © 2026 All rights reserved
         </p>
       </footer>

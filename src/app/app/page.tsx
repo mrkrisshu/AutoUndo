@@ -113,7 +113,7 @@ export default function AppPage() {
                 <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-xl">
                     <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                         <Link href="/" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Auto</span>Undo
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Auto</span>Undo
                         </Link>
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
@@ -129,7 +129,7 @@ export default function AppPage() {
 
                             {/* Input Card */}
                             <section className="relative overflow-hidden group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-1">
-                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 <div className="relative p-6 sm:p-8 space-y-6">
                                     <div>
                                         <h2 className="text-2xl font-semibold text-white mb-1">Run Automation</h2>
@@ -151,14 +151,14 @@ export default function AppPage() {
                                                     }
                                                 }}
                                                 placeholder="Metric Value (0-100)"
-                                                className="w-full h-14 px-5 bg-black/40 border border-white/10 rounded-xl text-lg text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all font-mono"
+                                                className="w-full h-14 px-5 bg-black/40 border border-white/10 rounded-xl text-lg text-white placeholder:text-white/20 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-mono"
                                                 disabled={loading}
                                             />
                                         </div>
                                         <button
                                             onClick={handleRunAutomation}
                                             disabled={loading || !metricValue}
-                                            className="h-14 px-8 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg shadow-purple-500/20 transition-all active:scale-95 flex items-center justify-center gap-2 text-nowrap"
+                                            className="h-14 px-8 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 flex items-center justify-center gap-2 text-nowrap"
                                         >
                                             {loading ? (
                                                 <>
@@ -188,7 +188,7 @@ export default function AppPage() {
                                     <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden relative">
                                         {/* Storing indicator */}
                                         {storing && (
-                                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent animate-shimmer" />
+                                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent animate-shimmer" />
                                         )}
 
                                         <div className="p-6 sm:p-8 space-y-8">
@@ -217,7 +217,7 @@ export default function AppPage() {
                                             {/* Reasoning */}
                                             <div>
                                                 <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
-                                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>
                                                     AI Reasoning
@@ -230,7 +230,7 @@ export default function AppPage() {
                                             {/* Undo Plan */}
                                             <div>
                                                 <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
-                                                    <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg className="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                                     </svg>
                                                     Undo Plan
